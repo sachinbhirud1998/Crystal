@@ -1,0 +1,10 @@
+# Replace placeholder teams or handles before enforcing ownership.
+* @project-crystal/platform-engineering
+/architecture/ @project-crystal/platform-engineering
+/docs/ @project-crystal/platform-engineering
+/terraform/ @project-crystal/platform-engineering
+/kubernetes/ @project-crystal/platform-engineering
+/helm/ @project-crystal/platform-engineering
+/applications/ @project-crystal/platform-engineering
+/monitoring/ @project-crystal/platform-engineering
+/scripts/ @project-crystal/platform-engineering
