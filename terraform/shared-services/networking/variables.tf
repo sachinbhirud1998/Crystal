@@ -1,17 +1,11 @@
 ############################################################
 # Project Crystal
 # Shared Services Networking
-#
-# USER INPUT REQUIRED?
-#
-# No.
-#
-# Values are supplied from terraform.tfvars.
 ############################################################
 
-##############################
-# AWS
-##############################
+############################################################
+# AWS Configuration
+############################################################
 
 variable "aws_region" {
   description = "AWS Region"
@@ -19,38 +13,30 @@ variable "aws_region" {
 }
 
 variable "aws_profile" {
-  description = "AWS CLI Profile"
+  description = "AWS CLI profile"
   type        = string
 }
 
-##############################
-# NETWORK
-##############################
+############################################################
+# VPC
+############################################################
 
 variable "vpc_name" {
-  description = "Shared Services VPC Name"
+  description = "Name of the Shared Services VPC"
   type        = string
 }
 
 variable "vpc_cidr" {
-  description = "Shared Services VPC CIDR"
+  description = "CIDR block for the Shared Services VPC"
   type        = string
 }
 
-##############################
-# TAGS
-##############################
-
-variable "common_tags" {
-  description = "Common project tags"
-  type        = map(string)
-}
 ############################################################
-# PUBLIC SUBNETS
+# Public Subnets
 ############################################################
 
 variable "public_subnets" {
-  description = "Public subnet configuration."
+  description = "Map of public subnets"
 
   type = map(object({
     cidr = string
@@ -59,14 +45,35 @@ variable "public_subnets" {
 }
 
 ############################################################
-# PRIVATE SUBNETS
+# Private Subnets
 ############################################################
 
 variable "private_subnets" {
-  description = "Private subnet configuration."
+  description = "Map of private subnets"
 
   type = map(object({
     cidr = string
     az   = string
   }))
+}
+
+############################################################
+# Common Tags
+############################################################
+
+variable "common_tags" {
+  description = "Common resource tags"
+
+  type = map(string)
+}
+
+############################################################
+# Management Security Group
+############################################################
+
+variable "allowed_ssh_cidrs" {
+  description = "List of CIDRs allowed to SSH into the management servers"
+
+  type    = list(string)
+  default = []
 }
