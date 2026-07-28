@@ -1,7 +1,11 @@
 ############################################################
 # Project Crystal
-# Module      : VPC
-# Milestone   : 2.1
+# Milestone 2.1
+# Shared Services Networking
+#
+# Purpose:
+# Locks Terraform and AWS Provider versions for this
+# deployment stack.
 #
 # USER INPUT REQUIRED?
 # No
