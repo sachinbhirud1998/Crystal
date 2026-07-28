@@ -45,3 +45,28 @@ variable "common_tags" {
   description = "Common project tags"
   type        = map(string)
 }
+############################################################
+# PUBLIC SUBNETS
+############################################################
+
+variable "public_subnets" {
+  description = "Public subnet configuration."
+
+  type = map(object({
+    cidr = string
+    az   = string
+  }))
+}
+
+############################################################
+# PRIVATE SUBNETS
+############################################################
+
+variable "private_subnets" {
+  description = "Private subnet configuration."
+
+  type = map(object({
+    cidr = string
+    az   = string
+  }))
+}
