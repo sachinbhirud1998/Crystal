@@ -1,74 +1,38 @@
 ############################################################
 # Project Crystal
-# Shared Services Networking
+# Shared Services - Management
 ############################################################
 
 ############################################################
 # AWS
 ############################################################
 
-aws_profile = "shared-services"
-
 aws_region = "ap-south-1"
 
-############################################################
-# VPC
-############################################################
-
-vpc_name = "crystal-shared-vpc"
-
-vpc_cidr = "10.0.0.0/16"
+aws_profile = "shared-services"
 
 ############################################################
-# PUBLIC SUBNETS
+# EC2
 ############################################################
 
-public_subnets = {
+instance_name = "crystal-management"
 
-  "crystal-public-subnet-a" = {
+instance_type = "t3.medium"
 
-    cidr = "10.0.1.0/24"
+root_volume_size = 30
 
-    az = "ap-south-1a"
+root_volume_type = "gp3"
 
-  }
-
-  "crystal-public-subnet-b" = {
-
-    cidr = "10.0.2.0/24"
-
-    az = "ap-south-1b"
-
-  }
-
-}
+associate_public_ip_address = true
 
 ############################################################
-# PRIVATE SUBNETS
+# SSH
 ############################################################
 
-private_subnets = {
-
-  "crystal-private-subnet-a" = {
-
-    cidr = "10.0.11.0/24"
-
-    az = "ap-south-1a"
-
-  }
-
-  "crystal-private-subnet-b" = {
-
-    cidr = "10.0.12.0/24"
-
-    az = "ap-south-1b"
-
-  }
-
-}
+key_name = "YOUR_KEY_PAIR_NAME"
 
 ############################################################
-# TAGS
+# Common Tags
 ############################################################
 
 common_tags = {
@@ -82,10 +46,7 @@ common_tags = {
 }
 
 ############################################################
-# Management Security Group
+# Subnet
 ############################################################
 
-allowed_ssh_cidrs = [
-  "103.235.0.227/32",
-  "192.168.1.8/32"
-]
+management_public_subnet_name = "crystal-public-subnet-a"
