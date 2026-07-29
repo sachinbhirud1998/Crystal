@@ -27,6 +27,14 @@ variable "aws_profile" {
 # EC2 Configuration
 ############################################################
 
+variable "ami_id" {
+
+  description = "Amazon Linux AMI ID"
+
+  type = string
+
+}
+
 variable "instance_name" {
 
   description = "Management EC2 instance name"
@@ -43,16 +51,6 @@ variable "instance_type" {
 
 }
 
-variable "ami_owner" {
-
-  description = "Amazon Linux AMI Owner"
-
-  type = string
-
-  default = "137112412989"
-
-}
-
 variable "root_volume_size" {
 
   description = "Root Volume Size"
@@ -65,8 +63,7 @@ variable "root_volume_type" {
 
   description = "Root Volume Type"
 
-  type = string
-
+  type    = string
   default = "gp3"
 
 }
@@ -75,8 +72,7 @@ variable "associate_public_ip_address" {
 
   description = "Assign Public IP"
 
-  type = bool
-
+  type    = bool
   default = true
 
 }
@@ -88,6 +84,14 @@ variable "associate_public_ip_address" {
 variable "key_name" {
 
   description = "EC2 Key Pair"
+
+  type = string
+
+}
+
+variable "private_key_path" {
+
+  description = "Local path to save the generated private key"
 
   type = string
 

@@ -66,3 +66,60 @@ locals {
   management_security_group_id = data.terraform_remote_state.networking.outputs.management_security_group_id
 
 }
+
+############################################################
+# Management Key Pair
+############################################################
+
+module "management_key_pair" {
+
+  source = "../../modules/key-pair"
+
+  key_name = var.key_name
+
+  private_key_path = var.private_key_path
+
+  tags = {
+
+    Name        = var.key_name
+    Project     = "Crystal"
+    Environment = "SharedServices"
+    ManagedBy   = "Terraform"
+
+  }
+
+}
+
+############################################################
+# Management EC2 Instance
+############################################################
+
+module "management_ec2" {
+
+  source = "../../modules/ec2"
+
+  instance_name = var.instance_name
+
+  ami_id = var.ami_id
+
+  instance_type = var.instance_type
+
+  subnet_id = local.management_subnet_id
+
+  security_group_ids = [
+    local.management_security_group_id
+  ]
+
+  associate_public_ip_address = var.associate_public_ip_address
+
+  iam_instance_profile = module.management_instance_profile.instance_profile_name
+
+  key_name = module.management_key_pair.key_name
+
+  root_volume_size = var.root_volume_size
+
+  root_volume_type = var.root_volume_type
+
+  tags = var.common_tags
+
+}
