@@ -18,18 +18,6 @@ data "terraform_remote_state" "networking" {
 }
 
 ############################################################
-# Local Values
-############################################################
-
-locals {
-
-  management_subnet_id = data.terraform_remote_state.networking.outputs.public_subnet_ids[0]
-
-  management_security_group_id = data.terraform_remote_state.networking.outputs.management_security_group_id
-
-}
-
-############################################################
 # IAM Role
 ############################################################
 
@@ -64,5 +52,17 @@ module "management_instance_profile" {
   role_name = module.management_iam_role.role_name
 
   tags = var.common_tags
+
+}
+
+############################################################
+# Local Values
+############################################################
+
+locals {
+
+  management_subnet_id = data.terraform_remote_state.networking.outputs.public_subnet_ids[var.management_public_subnet_name]
+
+  management_security_group_id = data.terraform_remote_state.networking.outputs.management_security_group_id
 
 }
