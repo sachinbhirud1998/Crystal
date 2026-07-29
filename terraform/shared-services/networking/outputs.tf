@@ -80,3 +80,25 @@ output "management_security_group_arn" {
 
   value = module.management_security_group.security_group_arn
 }
+
+############################################################
+# Public Network ACL
+############################################################
+
+output "public_network_acl_id" {
+
+  description = "Public Network ACL ID"
+
+  value = module.shared_services_network_acl.public_network_acl_id
+}
+
+############################################################
+# Private Network ACL
+############################################################
+
+output "private_network_acl_id" {
+
+  description = "Private Network ACL ID"
+
+  value = module.shared_services_network_acl.private_network_acl_id
+}

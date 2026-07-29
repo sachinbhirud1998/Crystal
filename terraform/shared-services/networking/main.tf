@@ -96,3 +96,28 @@ module "management_security_group" {
     ManagedBy   = "Terraform"
   }
 }
+
+############################################################
+# Shared Services Network ACL
+############################################################
+
+module "shared_services_network_acl" {
+
+  source = "../../modules/network-acl"
+
+  vpc_id   = module.shared_services_vpc.vpc_id
+  vpc_cidr = var.vpc_cidr
+
+  public_network_acl_name  = "crystal-public-network-acl"
+  private_network_acl_name = "crystal-private-network-acl"
+
+  public_subnet_ids = values(
+    module.shared_services_subnets.public_subnet_ids
+  )
+
+  private_subnet_ids = values(
+    module.shared_services_subnets.private_subnet_ids
+  )
+
+  tags = var.common_tags
+}
