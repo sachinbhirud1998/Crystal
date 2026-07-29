@@ -62,3 +62,25 @@ output "management_security_group_id" {
   value = local.management_security_group_id
 
 }
+
+############################################################
+# Key Pair
+############################################################
+
+output "key_name" {
+
+  value = module.management_key_pair.key_name
+
+}
+
+output "private_key_file" {
+
+  value = module.management_key_pair.private_key_file
+
+}
+
+output "key_fingerprint" {
+
+  value = module.management_key_pair.fingerprint
+
+}
