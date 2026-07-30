@@ -29,7 +29,9 @@ internet_gateway_name = "crystal-production-igw"
 # Route Table
 ############################################################
 
-public_route_table_name = "crystal-production-public-route-table"
+public_route_table_name = "crystal-prod-public-route-table"
+
+private_route_table_name = "crystal-prod-private-route-table"
 
 ############################################################
 # Network ACL

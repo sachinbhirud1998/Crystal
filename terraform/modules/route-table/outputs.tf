@@ -1,13 +1,39 @@
 ############################################################
-# Outputs
+# Public Route Table
 ############################################################
 
-output "route_table_id" {
+output "public_route_table_id" {
+
   description = "Public Route Table ID"
-  value       = aws_route_table.public.id
+
+  value = aws_route_table.public.id
+
 }
 
-output "route_table_arn" {
+output "public_route_table_arn" {
+
   description = "Public Route Table ARN"
-  value       = aws_route_table.public.arn
+
+  value = aws_route_table.public.arn
+
+}
+
+############################################################
+# Private Route Table
+############################################################
+
+output "private_route_table_id" {
+
+  description = "Private Route Table ID"
+
+  value = aws_route_table.private.id
+
+}
+
+output "private_route_table_arn" {
+
+  description = "Private Route Table ARN"
+
+  value = aws_route_table.private.arn
+
 }

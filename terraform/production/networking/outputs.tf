@@ -76,14 +76,14 @@ output "internet_gateway_arn" {
 }
 
 ############################################################
-# Route Table
+# Public Route Table
 ############################################################
 
 output "public_route_table_id" {
 
   description = "Production Public Route Table ID"
 
-  value = module.production_route_table.route_table_id
+  value = module.production_route_table.public_route_table_id
 
 }
 
@@ -91,7 +91,27 @@ output "public_route_table_arn" {
 
   description = "Production Public Route Table ARN"
 
-  value = module.production_route_table.route_table_arn
+  value = module.production_route_table.public_route_table_arn
+
+}
+
+############################################################
+# Private Route Table
+############################################################
+
+output "private_route_table_id" {
+
+  description = "Production Private Route Table ID"
+
+  value = module.production_route_table.private_route_table_id
+
+}
+
+output "private_route_table_arn" {
+
+  description = "Production Private Route Table ARN"
+
+  value = module.production_route_table.private_route_table_arn
 
 }
 
