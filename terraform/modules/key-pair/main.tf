@@ -1,0 +1,32 @@
+############################################################
+# Project Crystal
+# Key Pair Module
+############################################################
+
+resource "tls_private_key" "this" {
+
+  algorithm = var.algorithm
+
+  rsa_bits = var.rsa_bits
+
+}
+
+resource "aws_key_pair" "this" {
+
+  key_name = var.key_name
+
+  public_key = tls_private_key.this.public_key_openssh
+
+  tags = var.tags
+
+}
+
+resource "local_file" "private_key" {
+
+  filename = var.private_key_path
+
+  content = tls_private_key.this.private_key_pem
+
+  file_permission = "0400"
+
+}
