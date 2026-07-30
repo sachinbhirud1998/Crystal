@@ -1,123 +1,68 @@
 ############################################################
 # Project Crystal
-# Shared Services Networking
-#
-# Milestone 2
-#
-# Resources
-#   - VPC
-#   - Public Subnets
-#   - Private Subnets
-#   - Internet Gateway
-#   - Public Route Table
+# Shared Services - Management
 ############################################################
 
 ############################################################
-# Shared Services VPC
+# Networking Remote State
 ############################################################
 
-module "shared_services_vpc" {
+data "terraform_remote_state" "networking" {
 
-  source = "../../modules/vpc"
+  backend = "local"
 
-  vpc_name = var.vpc_name
-  vpc_cidr = var.vpc_cidr
-
-  tags = var.common_tags
-}
-
-############################################################
-# Shared Services Subnets
-############################################################
-
-module "shared_services_subnets" {
-
-  source = "../../modules/subnet"
-
-  vpc_id = module.shared_services_vpc.vpc_id
-
-  public_subnets  = var.public_subnets
-  private_subnets = var.private_subnets
-
-  tags = var.common_tags
-}
-
-############################################################
-# Shared Services Internet Gateway
-############################################################
-
-module "shared_services_igw" {
-
-  source = "../../modules/internet-gateway"
-
-  vpc_id = module.shared_services_vpc.vpc_id
-
-  igw_name = "crystal-shared-services-igw"
-
-  tags = var.common_tags
-}
-
-############################################################
-# Shared Services Public Route Table
-############################################################
-
-module "shared_services_route_table" {
-
-  source = "../../modules/route-table"
-
-  vpc_id = module.shared_services_vpc.vpc_id
-
-  route_table_name = "crystal-public-route-table"
-
-  internet_gateway_id = module.shared_services_igw.igw_id
-
-  public_subnet_ids = values(module.shared_services_subnets.public_subnet_ids)
-
-  tags = var.common_tags
-}
-
-############################################################
-# Management Security Group
-############################################################
-
-module "management_security_group" {
-
-  source = "../../modules/security-group"
-
-  vpc_id = module.shared_services_vpc.vpc_id
-
-  security_group_name = "crystal-management-sg"
-
-  allowed_ssh_cidrs = var.allowed_ssh_cidrs
-
-  tags = {
-    Project     = "Crystal"
-    Environment = "shared-services"
-    ManagedBy   = "Terraform"
+  config = {
+    path = "../networking/terraform.tfstate"
   }
+
 }
 
 ############################################################
-# Shared Services Network ACL
+# Local Values
 ############################################################
 
-module "shared_services_network_acl" {
+locals {
 
-  source = "../../modules/network-acl"
+  management_subnet_id = data.terraform_remote_state.networking.outputs.public_subnet_ids[0]
 
-  vpc_id   = module.shared_services_vpc.vpc_id
-  vpc_cidr = var.vpc_cidr
+  management_security_group_id = data.terraform_remote_state.networking.outputs.management_security_group_id
 
-  public_network_acl_name  = "crystal-public-network-acl"
-  private_network_acl_name = "crystal-private-network-acl"
+}
 
-  public_subnet_ids = values(
-    module.shared_services_subnets.public_subnet_ids
-  )
+############################################################
+# IAM Role
+############################################################
 
-  private_subnet_ids = values(
-    module.shared_services_subnets.private_subnet_ids
-  )
+module "management_iam_role" {
+
+  source = "../../modules/iam-role"
+
+  role_name = "crystal-management-role"
+
+  role_description = "IAM Role for Project Crystal Management Server"
+
+  service_principal = "ec2.amazonaws.com"
+
+  managed_policy_arns = [
+    "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+  ]
 
   tags = var.common_tags
+
+}
+
+############################################################
+# IAM Instance Profile
+############################################################
+
+module "management_instance_profile" {
+
+  source = "../../modules/instance-profile"
+
+  instance_profile_name = "crystal-management-instance-profile"
+
+  role_name = module.management_iam_role.role_name
+
+  tags = var.common_tags
+
 }
