@@ -54,20 +54,52 @@ module "production_internet_gateway" {
 }
 
 ############################################################
-# Public Route Table
+# Public & Private Route Tables
 ############################################################
 
 module "production_route_table" {
 
   source = "../../modules/route-table"
 
+  ##########################################################
+  # VPC
+  ##########################################################
+
   vpc_id = module.production_vpc.vpc_id
 
-  route_table_name = var.public_route_table_name
+  ##########################################################
+  # Route Table Names
+  ##########################################################
+
+  public_route_table_name = var.public_route_table_name
+
+  private_route_table_name = var.private_route_table_name
+
+  ##########################################################
+  # Internet Gateway
+  ##########################################################
 
   internet_gateway_id = module.production_internet_gateway.igw_id
 
-  public_subnet_ids = values(module.production_subnets.public_subnet_ids)
+  ##########################################################
+  # Public Subnets
+  ##########################################################
+
+  public_subnet_ids = values(
+    module.production_subnets.public_subnet_ids
+  )
+
+  ##########################################################
+  # Private Subnets
+  ##########################################################
+
+  private_subnet_ids = values(
+    module.production_subnets.private_subnet_ids
+  )
+
+  ##########################################################
+  # Tags
+  ##########################################################
 
   tags = var.common_tags
 

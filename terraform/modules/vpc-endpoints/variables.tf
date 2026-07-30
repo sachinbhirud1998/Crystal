@@ -1,6 +1,6 @@
 ############################################################
 # Project Crystal
-# Module      : Route Table
+# Module      : VPC Endpoints
 ############################################################
 
 ############################################################
@@ -16,62 +16,68 @@ variable "vpc_id" {
 }
 
 ############################################################
-# Public Route Table
-############################################################
-
-variable "public_route_table_name" {
-
-  description = "Public Route Table Name"
-
-  type = string
-
-}
-
-############################################################
-# Private Route Table
-############################################################
-
-variable "private_route_table_name" {
-
-  description = "Private Route Table Name"
-
-  type = string
-
-}
-
-############################################################
-# Internet Gateway
-############################################################
-
-variable "internet_gateway_id" {
-
-  description = "Internet Gateway ID"
-
-  type = string
-
-}
-
-############################################################
-# Public Subnets
-############################################################
-
-variable "public_subnet_ids" {
-
-  description = "Public Subnet IDs"
-
-  type = list(string)
-
-}
-
-############################################################
-# Private Subnets
+# Networking
 ############################################################
 
 variable "private_subnet_ids" {
 
-  description = "Private Subnet IDs"
+  description = "Private Subnet IDs for Interface Endpoints"
 
   type = list(string)
+
+}
+
+variable "route_table_ids" {
+
+  description = "Route Table IDs for Gateway Endpoints"
+
+  type = list(string)
+
+}
+
+variable "security_group_ids" {
+
+  description = "Security Group IDs for Interface Endpoints"
+
+  type = list(string)
+
+}
+
+############################################################
+# Interface Endpoints
+############################################################
+
+variable "interface_endpoints" {
+
+  description = "Interface VPC Endpoints"
+
+  type = map(object({
+
+    service = string
+
+    private_dns_enabled = bool
+
+  }))
+
+  default = {}
+
+}
+
+############################################################
+# Gateway Endpoints
+############################################################
+
+variable "gateway_endpoints" {
+
+  description = "Gateway VPC Endpoints"
+
+  type = map(object({
+
+    service = string
+
+  }))
+
+  default = {}
 
 }
 

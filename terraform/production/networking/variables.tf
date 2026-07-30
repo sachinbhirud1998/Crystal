@@ -56,12 +56,20 @@ variable "internet_gateway_name" {
 }
 
 ############################################################
-# Route Table
+# Route Tables
 ############################################################
 
 variable "public_route_table_name" {
 
   description = "Public Route Table Name"
+
+  type = string
+
+}
+
+variable "private_route_table_name" {
+
+  description = "Private Route Table Name"
 
   type = string
 
@@ -110,8 +118,7 @@ variable "public_subnets" {
   type = map(object({
 
     cidr = string
-
-    az = string
+    az   = string
 
   }))
 
@@ -128,8 +135,7 @@ variable "private_subnets" {
   type = map(object({
 
     cidr = string
-
-    az = string
+    az   = string
 
   }))
 
