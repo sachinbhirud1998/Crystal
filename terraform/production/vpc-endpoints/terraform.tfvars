@@ -1,10 +1,10 @@
 ############################################################
-Project Crystal
-Production VPC Endpoints
+# Project Crystal
+# Production VPC Endpoints
 ############################################################
 
 ############################################################
-AWS Configuration
+# AWS Configuration
 ############################################################
 
 aws_region = "ap-south-1"
@@ -12,20 +12,28 @@ aws_region = "ap-south-1"
 aws_profile = "production"
 
 ############################################################
-Security Group
+# Security Group
 ############################################################
 
 endpoint_security_group_name = "crystal-production-vpc-endpoints-sg"
 
 ############################################################
-Interface Endpoints
+# Interface Endpoints
 ############################################################
 
 interface_endpoints = {
 
-  eks = {
+  ecr-api = {
 
-    service = "eks"
+    service = "ecr.api"
+
+    private_dns_enabled = true
+
+  }
+
+  ecr-dkr = {
+
+    service = "ecr.dkr"
 
     private_dns_enabled = true
 
@@ -34,22 +42,6 @@ interface_endpoints = {
   ec2 = {
 
     service = "ec2"
-
-    private_dns_enabled = true
-
-  }
-
-  ecr_api = {
-
-    service = "ecr.api"
-
-    private_dns_enabled = true
-
-  }
-
-  ecr_dkr = {
-
-    service = "ecr.dkr"
 
     private_dns_enabled = true
 
@@ -90,7 +82,7 @@ interface_endpoints = {
 }
 
 ############################################################
-Gateway Endpoints
+# Gateway Endpoints
 ############################################################
 
 gateway_endpoints = {
@@ -104,7 +96,7 @@ gateway_endpoints = {
 }
 
 ############################################################
-Common Tags
+# Common Tags
 ############################################################
 
 common_tags = {

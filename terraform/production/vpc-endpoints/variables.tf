@@ -1,100 +1,10 @@
 ############################################################
-Project Crystal
-Module      : VPC Endpoints
+# Project Crystal
+# Production VPC Endpoints
 ############################################################
 
 ############################################################
-Interface Endpoints
-############################################################
-
-output "interface_endpoint_ids" {
-
-  description = "Interface VPC Endpoint IDs"
-
-  value = {
-
-    for endpoint_name, endpoint in aws_vpc_endpoint.interface :
-
-    endpoint_name => endpoint.id
-
-  }
-
-}
-
-output "interface_endpoint_arns" {
-
-  description = "Interface VPC Endpoint ARNs"
-
-  value = {
-
-    for endpoint_name, endpoint in aws_vpc_endpoint.interface :
-
-    endpoint_name => endpoint.arn
-
-  }
-
-}
-
-############################################################
-Gateway Endpoints
-############################################################
-
-output "gateway_endpoint_ids" {
-
-  description = "Gateway VPC Endpoint IDs"
-
-  value = {
-
-    for endpoint_name, endpoint in aws_vpc_endpoint.gateway :
-
-    endpoint_name => endpoint.id
-
-  }
-
-}
-
-output "gateway_endpoint_prefix_list_ids" {
-
-  description = "Gateway Endpoint Prefix List IDs"
-
-  value = {
-
-    for endpoint_name, endpoint in aws_vpc_endpoint.gateway :
-
-    endpoint_name => endpoint.prefix_list_id
-
-  }
-
-}
-############################################################
-Project Crystal
-Production VPC Endpoints
-############################################################
-
-terraform {
-
-  required_version = ">= 1.12.0"
-
-  required_providers {
-
-    aws = {
-
-      source  = "hashicorp/aws"
-
-      version = "~> 6.0"
-
-    }
-
-  }
-
-}
-############################################################
-Project Crystal
-Production VPC Endpoints
-############################################################
-
-############################################################
-AWS Configuration
+# AWS Configuration
 ############################################################
 
 variable "aws_region" {
@@ -114,7 +24,7 @@ variable "aws_profile" {
 }
 
 ############################################################
-Security Group
+# Security Group
 ############################################################
 
 variable "endpoint_security_group_name" {
@@ -126,7 +36,7 @@ variable "endpoint_security_group_name" {
 }
 
 ############################################################
-Interface Endpoints
+# Interface Endpoints
 ############################################################
 
 variable "interface_endpoints" {
@@ -135,7 +45,7 @@ variable "interface_endpoints" {
 
   type = map(object({
 
-    service_name = string
+    service = string
 
     private_dns_enabled = bool
 
@@ -144,7 +54,7 @@ variable "interface_endpoints" {
 }
 
 ############################################################
-Gateway Endpoints
+# Gateway Endpoints
 ############################################################
 
 variable "gateway_endpoints" {
@@ -153,19 +63,19 @@ variable "gateway_endpoints" {
 
   type = map(object({
 
-    service_name = string
+    service = string
 
   }))
 
 }
 
 ############################################################
-Common Tags
+# Common Tags
 ############################################################
 
 variable "common_tags" {
 
-  description = "Common Resource Tags"
+  description = "Common Tags"
 
   type = map(string)
 

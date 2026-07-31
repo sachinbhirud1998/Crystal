@@ -1,11 +1,11 @@
 ############################################################
-Project Crystal
-Module      : VPC Endpoints
+# Project Crystal
+# VPC Endpoints Module
 ############################################################
 
 terraform {
 
-  required_version = ">= 1.12.0"
+  required_version = ">= 1.6.0"
 
   required_providers {
 
@@ -13,7 +13,7 @@ terraform {
 
       source  = "hashicorp/aws"
 
-      version = "~> 6.0"
+      version = "~> 6.2"
 
     }
 

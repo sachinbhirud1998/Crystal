@@ -1,10 +1,10 @@
 ############################################################
 # Project Crystal
-# Module      : VPC Endpoints
+# VPC Endpoints Module
 ############################################################
 
 ############################################################
-# VPC
+# Networking
 ############################################################
 
 variable "vpc_id" {
@@ -15,13 +15,9 @@ variable "vpc_id" {
 
 }
 
-############################################################
-# Networking
-############################################################
-
 variable "private_subnet_ids" {
 
-  description = "Private Subnet IDs for Interface Endpoints"
+  description = "Private Subnet IDs"
 
   type = list(string)
 
@@ -29,7 +25,7 @@ variable "private_subnet_ids" {
 
 variable "route_table_ids" {
 
-  description = "Route Table IDs for Gateway Endpoints"
+  description = "Route Table IDs"
 
   type = list(string)
 
@@ -37,7 +33,7 @@ variable "route_table_ids" {
 
 variable "security_group_ids" {
 
-  description = "Security Group IDs for Interface Endpoints"
+  description = "Security Group IDs"
 
   type = list(string)
 
@@ -49,17 +45,15 @@ variable "security_group_ids" {
 
 variable "interface_endpoints" {
 
-  description = "Interface VPC Endpoints"
+  description = "Map of Interface VPC Endpoints"
 
   type = map(object({
 
-    service = string
+    service             = string
 
     private_dns_enabled = bool
 
   }))
-
-  default = {}
 
 }
 
@@ -69,15 +63,13 @@ variable "interface_endpoints" {
 
 variable "gateway_endpoints" {
 
-  description = "Gateway VPC Endpoints"
+  description = "Map of Gateway VPC Endpoints"
 
   type = map(object({
 
     service = string
 
   }))
-
-  default = {}
 
 }
 
@@ -87,7 +79,7 @@ variable "gateway_endpoints" {
 
 variable "tags" {
 
-  description = "Common Resource Tags"
+  description = "Tags applied to all resources"
 
   type = map(string)
 
