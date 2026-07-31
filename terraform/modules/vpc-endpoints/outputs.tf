@@ -1,68 +1,56 @@
 ############################################################
-Project Crystal
-Module      : VPC Endpoints
+# Project Crystal
+# VPC Endpoints Module
 ############################################################
 
 ############################################################
-Interface Endpoints
+# Interface Endpoint Outputs
 ############################################################
 
 output "interface_endpoint_ids" {
 
-  description = "Interface VPC Endpoint IDs"
+  description = "Map of Interface Endpoint IDs"
 
   value = {
-
-    for endpoint_name, endpoint in aws_vpc_endpoint.interface :
-
-    endpoint_name => endpoint.id
-
+    for endpoint, resource in aws_vpc_endpoint.interface :
+    endpoint => resource.id
   }
 
 }
 
 output "interface_endpoint_arns" {
 
-  description = "Interface VPC Endpoint ARNs"
+  description = "Map of Interface Endpoint ARNs"
 
   value = {
-
-    for endpoint_name, endpoint in aws_vpc_endpoint.interface :
-
-    endpoint_name => endpoint.arn
-
+    for endpoint, resource in aws_vpc_endpoint.interface :
+    endpoint => resource.arn
   }
 
 }
 
 ############################################################
-Gateway Endpoints
+# Gateway Endpoint Outputs
 ############################################################
 
 output "gateway_endpoint_ids" {
 
-  description = "Gateway VPC Endpoint IDs"
+  description = "Map of Gateway Endpoint IDs"
 
   value = {
-
-    for endpoint_name, endpoint in aws_vpc_endpoint.gateway :
-
-    endpoint_name => endpoint.id
-
+    for endpoint, resource in aws_vpc_endpoint.gateway :
+    endpoint => resource.id
   }
 
 }
 
 output "gateway_endpoint_prefix_list_ids" {
 
-  description = "Gateway Endpoint Prefix List IDs"
+  description = "Map of Gateway Endpoint Prefix List IDs"
 
   value = {
-
-    for endpoint_name, endpoint in aws_vpc_endpoint.gateway :
-
-    endpoint_name => endpoint.prefix_list_id
-
+    for endpoint, resource in aws_vpc_endpoint.gateway :
+    endpoint => resource.prefix_list_id
   }
 
 }
