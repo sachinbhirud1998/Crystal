@@ -164,3 +164,31 @@ variable "common_tags" {
   type = map(string)
 
 }
+
+############################################################
+# NAT Gateway
+############################################################
+
+variable "nat_gateway_name" {
+
+  description = "Production NAT Gateway Name"
+
+  type = string
+
+}
+
+variable "elastic_ip_name" {
+
+  description = "Elastic IP Name"
+
+  type = string
+
+}
+
+variable "nat_gateway_public_subnet_name" {
+
+  description = "Public Subnet Name where NAT Gateway will be deployed"
+
+  type = string
+
+}

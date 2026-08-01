@@ -146,3 +146,50 @@ module "bastion_security_group" {
   tags = var.common_tags
 
 }
+
+############################################################
+# NAT Gateway
+############################################################
+
+module "production_nat_gateway" {
+
+  source = "../../modules/nat-gateway"
+
+  ##########################################################
+  # Names
+  ##########################################################
+
+  nat_gateway_name = var.nat_gateway_name
+
+  elastic_ip_name = var.elastic_ip_name
+
+  ##########################################################
+  # Networking
+  ##########################################################
+
+  public_subnet_id = module.production_subnets.public_subnet_ids[
+    var.nat_gateway_public_subnet_name
+  ]
+
+  private_route_table_id = module.production_route_table.private_route_table_id
+
+
+  ##########################################################
+  # Tags
+  ##########################################################
+
+  tags = var.common_tags
+
+  ##########################################################
+  # Dependencies
+  ##########################################################
+
+  depends_on = [
+
+    module.production_internet_gateway,
+
+    module.production_route_table
+
+  ]
+
+}
