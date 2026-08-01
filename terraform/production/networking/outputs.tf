@@ -154,3 +154,52 @@ output "bastion_security_group_arn" {
   value = module.bastion_security_group.security_group_arn
 
 }
+
+############################################################
+# NAT Gateway
+############################################################
+
+output "nat_gateway_id" {
+
+  description = "Production NAT Gateway ID"
+
+  value = module.production_nat_gateway.nat_gateway_id
+
+}
+
+
+output "nat_gateway_private_ip" {
+
+  description = "Production NAT Gateway Private IP"
+
+  value = module.production_nat_gateway.nat_gateway_private_ip
+
+}
+
+output "nat_gateway_public_ip" {
+
+  description = "Production NAT Gateway Public IP"
+
+  value = module.production_nat_gateway.nat_gateway_public_ip
+
+}
+
+############################################################
+# Elastic IP
+############################################################
+
+output "nat_gateway_elastic_ip" {
+
+  description = "Production NAT Gateway Elastic IP"
+
+  value = module.production_nat_gateway.elastic_ip_public_ip
+
+}
+
+output "nat_gateway_elastic_ip_allocation_id" {
+
+  description = "Production NAT Gateway Elastic IP Allocation ID"
+
+  value = module.production_nat_gateway.elastic_ip_allocation_id
+
+}

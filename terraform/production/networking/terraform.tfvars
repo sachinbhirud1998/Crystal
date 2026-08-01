@@ -120,3 +120,13 @@ common_tags = {
   ManagedBy = "Terraform"
 
 }
+
+############################################################
+# NAT Gateway
+############################################################
+
+nat_gateway_name = "crystal-production-nat-gateway"
+
+elastic_ip_name = "crystal-production-nat-eip"
+
+nat_gateway_public_subnet_name = "crystal-prod-public-subnet-a"
