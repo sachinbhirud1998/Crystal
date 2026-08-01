@@ -44,6 +44,61 @@ module "bastion_iam_role" {
 }
 
 ############################################################
+# Bastion EKS Access Policy
+############################################################
+
+resource "aws_iam_role_policy" "bastion_eks_access" {
+
+  name = "crystal-production-bastion-eks-access"
+
+  role = module.bastion_iam_role.role_name
+
+  policy = jsonencode({
+
+    Version = "2012-10-17"
+
+    Statement = [
+
+      {
+
+        Sid = "EKSRead"
+
+        Effect = "Allow"
+
+        Action = [
+
+          "eks:DescribeCluster",
+          "eks:ListClusters"
+
+        ]
+
+        Resource = "*"
+
+      },
+
+      {
+
+        Sid = "STSRead"
+
+        Effect = "Allow"
+
+        Action = [
+
+          "sts:GetCallerIdentity"
+
+        ]
+
+        Resource = "*"
+
+      }
+
+    ]
+
+  })
+
+}
+
+############################################################
 # IAM Instance Profile
 ############################################################
 
