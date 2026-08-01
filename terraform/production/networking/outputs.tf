@@ -116,26 +116,6 @@ output "private_route_table_arn" {
 }
 
 ############################################################
-# Network ACL
-############################################################
-
-output "public_network_acl_id" {
-
-  description = "Production Public Network ACL ID"
-
-  value = module.production_network_acl.public_network_acl_id
-
-}
-
-output "private_network_acl_id" {
-
-  description = "Production Private Network ACL ID"
-
-  value = module.production_network_acl.private_network_acl_id
-
-}
-
-############################################################
 # Bastion Security Group
 ############################################################
 
@@ -166,7 +146,6 @@ output "nat_gateway_id" {
   value = module.production_nat_gateway.nat_gateway_id
 
 }
-
 
 output "nat_gateway_private_ip" {
 
