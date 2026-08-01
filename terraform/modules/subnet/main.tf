@@ -17,12 +17,23 @@ resource "aws_subnet" "public" {
   map_public_ip_on_launch = true
 
   tags = merge(
+
     var.tags,
+
     {
+
       Name = each.key
+
       Type = "Public"
+
+      "kubernetes.io/cluster/crystal-production-eks" = "shared"
+
+      "kubernetes.io/role/elb" = "1"
+
     }
+
   )
+
 }
 
 ############################################################
@@ -38,10 +49,21 @@ resource "aws_subnet" "private" {
   availability_zone = each.value.az
 
   tags = merge(
+
     var.tags,
+
     {
+
       Name = each.key
+
       Type = "Private"
+
+      "kubernetes.io/cluster/crystal-production-eks" = "shared"
+
+      "kubernetes.io/role/internal-elb" = "1"
+
     }
+
   )
+
 }
