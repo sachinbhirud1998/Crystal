@@ -47,7 +47,7 @@ endpoint_public_access = true
 
 public_access_cidrs = [
 
-  "103.195.202.202/32",
+  "45.127.44.82/32",
 
   "103.235.0.227/32"
 
