@@ -3,49 +3,88 @@
 # Module      : Route Table
 ############################################################
 
-##############################
+############################################################
 # VPC
-##############################
+############################################################
 
 variable "vpc_id" {
+
   description = "VPC ID"
-  type        = string
+
+  type = string
+
 }
 
-##############################
-# Route Table
-##############################
+############################################################
+# Public Route Table
+############################################################
 
-variable "route_table_name" {
-  description = "Route Table Name"
-  type        = string
+variable "public_route_table_name" {
+
+  description = "Public Route Table Name"
+
+  type = string
+
 }
 
-##############################
+############################################################
+# Private Route Table
+############################################################
+
+variable "private_route_table_name" {
+
+  description = "Private Route Table Name"
+
+  type = string
+
+}
+
+############################################################
 # Internet Gateway
-##############################
+############################################################
 
 variable "internet_gateway_id" {
+
   description = "Internet Gateway ID"
-  type        = string
+
+  type = string
+
 }
 
-##############################
+############################################################
 # Public Subnets
-##############################
+############################################################
 
 variable "public_subnet_ids" {
+
   description = "Public Subnet IDs"
-  type        = list(string)
+
+  type = list(string)
+
 }
 
-##############################
-# Tags
-##############################
+############################################################
+# Private Subnets
+############################################################
+
+variable "private_subnet_ids" {
+
+  description = "Private Subnet IDs"
+
+  type = list(string)
+
+}
+
+############################################################
+# Common Tags
+############################################################
 
 variable "tags" {
-  description = "Common Tags"
-  type        = map(string)
+
+  description = "Common Resource Tags"
+
+  type = map(string)
 
   default = {}
+
 }

@@ -29,7 +29,9 @@ internet_gateway_name = "crystal-production-igw"
 # Route Table
 ############################################################
 
-public_route_table_name = "crystal-production-public-route-table"
+public_route_table_name = "crystal-prod-public-route-table"
+
+private_route_table_name = "crystal-prod-private-route-table"
 
 ############################################################
 # Network ACL
@@ -118,3 +120,13 @@ common_tags = {
   ManagedBy = "Terraform"
 
 }
+
+############################################################
+# NAT Gateway
+############################################################
+
+nat_gateway_name = "crystal-production-nat-gateway"
+
+elastic_ip_name = "crystal-production-nat-eip"
+
+nat_gateway_public_subnet_name = "crystal-prod-public-subnet-a"

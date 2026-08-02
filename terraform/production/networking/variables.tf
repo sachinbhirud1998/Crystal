@@ -56,12 +56,20 @@ variable "internet_gateway_name" {
 }
 
 ############################################################
-# Route Table
+# Route Tables
 ############################################################
 
 variable "public_route_table_name" {
 
   description = "Public Route Table Name"
+
+  type = string
+
+}
+
+variable "private_route_table_name" {
+
+  description = "Private Route Table Name"
 
   type = string
 
@@ -110,8 +118,7 @@ variable "public_subnets" {
   type = map(object({
 
     cidr = string
-
-    az = string
+    az   = string
 
   }))
 
@@ -128,8 +135,7 @@ variable "private_subnets" {
   type = map(object({
 
     cidr = string
-
-    az = string
+    az   = string
 
   }))
 
@@ -156,5 +162,33 @@ variable "common_tags" {
   description = "Common Tags"
 
   type = map(string)
+
+}
+
+############################################################
+# NAT Gateway
+############################################################
+
+variable "nat_gateway_name" {
+
+  description = "Production NAT Gateway Name"
+
+  type = string
+
+}
+
+variable "elastic_ip_name" {
+
+  description = "Elastic IP Name"
+
+  type = string
+
+}
+
+variable "nat_gateway_public_subnet_name" {
+
+  description = "Public Subnet Name where NAT Gateway will be deployed"
+
+  type = string
 
 }

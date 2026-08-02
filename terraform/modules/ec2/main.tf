@@ -17,7 +17,7 @@ resource "aws_instance" "this" {
 
   monitoring = var.enable_detailed_monitoring
 
-  user_data = var.user_data
+  user_data_base64 = var.user_data
 
   metadata_options {
 

@@ -76,14 +76,14 @@ output "internet_gateway_arn" {
 }
 
 ############################################################
-# Route Table
+# Public Route Table
 ############################################################
 
 output "public_route_table_id" {
 
   description = "Production Public Route Table ID"
 
-  value = module.production_route_table.route_table_id
+  value = module.production_route_table.public_route_table_id
 
 }
 
@@ -91,27 +91,27 @@ output "public_route_table_arn" {
 
   description = "Production Public Route Table ARN"
 
-  value = module.production_route_table.route_table_arn
+  value = module.production_route_table.public_route_table_arn
 
 }
 
 ############################################################
-# Network ACL
+# Private Route Table
 ############################################################
 
-output "public_network_acl_id" {
+output "private_route_table_id" {
 
-  description = "Production Public Network ACL ID"
+  description = "Production Private Route Table ID"
 
-  value = module.production_network_acl.public_network_acl_id
+  value = module.production_route_table.private_route_table_id
 
 }
 
-output "private_network_acl_id" {
+output "private_route_table_arn" {
 
-  description = "Production Private Network ACL ID"
+  description = "Production Private Route Table ARN"
 
-  value = module.production_network_acl.private_network_acl_id
+  value = module.production_route_table.private_route_table_arn
 
 }
 
@@ -132,5 +132,53 @@ output "bastion_security_group_arn" {
   description = "Production Bastion Security Group ARN"
 
   value = module.bastion_security_group.security_group_arn
+
+}
+
+############################################################
+# NAT Gateway
+############################################################
+
+output "nat_gateway_id" {
+
+  description = "Production NAT Gateway ID"
+
+  value = module.production_nat_gateway.nat_gateway_id
+
+}
+
+output "nat_gateway_private_ip" {
+
+  description = "Production NAT Gateway Private IP"
+
+  value = module.production_nat_gateway.nat_gateway_private_ip
+
+}
+
+output "nat_gateway_public_ip" {
+
+  description = "Production NAT Gateway Public IP"
+
+  value = module.production_nat_gateway.nat_gateway_public_ip
+
+}
+
+############################################################
+# Elastic IP
+############################################################
+
+output "nat_gateway_elastic_ip" {
+
+  description = "Production NAT Gateway Elastic IP"
+
+  value = module.production_nat_gateway.elastic_ip_public_ip
+
+}
+
+output "nat_gateway_elastic_ip_allocation_id" {
+
+  description = "Production NAT Gateway Elastic IP Allocation ID"
+
+  value = module.production_nat_gateway.elastic_ip_allocation_id
 
 }
