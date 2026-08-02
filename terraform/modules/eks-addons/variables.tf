@@ -15,49 +15,21 @@ variable "cluster_name" {
 
 }
 
-############################################################
-# Amazon VPC CNI
-############################################################
+variable "cluster_version" {
 
-variable "vpc_cni_version" {
-
-  description = "Amazon VPC CNI Add-on Version"
+  description = "Amazon EKS Kubernetes Version"
 
   type = string
 
 }
 
 ############################################################
-# CoreDNS
+# Amazon EBS CSI Driver IRSA
 ############################################################
 
-variable "coredns_version" {
+variable "ebs_csi_irsa_role_arn" {
 
-  description = "CoreDNS Add-on Version"
-
-  type = string
-
-}
-
-############################################################
-# kube-proxy
-############################################################
-
-variable "kube_proxy_version" {
-
-  description = "kube-proxy Add-on Version"
-
-  type = string
-
-}
-
-############################################################
-# Amazon EBS CSI Driver
-############################################################
-
-variable "ebs_csi_driver_version" {
-
-  description = "Amazon EBS CSI Driver Add-on Version"
+  description = "IAM Role ARN used by Amazon EBS CSI Driver"
 
   type = string
 
@@ -69,7 +41,7 @@ variable "ebs_csi_driver_version" {
 
 variable "resolve_conflicts_on_create" {
 
-  description = "Conflict resolution strategy during add-on creation"
+  description = "Conflict resolution during creation"
 
   type = string
 
@@ -79,7 +51,7 @@ variable "resolve_conflicts_on_create" {
 
 variable "resolve_conflicts_on_update" {
 
-  description = "Conflict resolution strategy during add-on update"
+  description = "Conflict resolution during update"
 
   type = string
 
@@ -93,7 +65,7 @@ variable "resolve_conflicts_on_update" {
 
 variable "tags" {
 
-  description = "Common Resource Tags"
+  description = "Common Tags"
 
   type = map(string)
 

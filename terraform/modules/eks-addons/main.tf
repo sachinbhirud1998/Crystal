@@ -4,6 +4,50 @@
 ############################################################
 
 ############################################################
+# Latest Compatible Add-on Versions
+############################################################
+
+data "aws_eks_addon_version" "vpc_cni" {
+
+  addon_name = "vpc-cni"
+
+  kubernetes_version = var.cluster_version
+
+  most_recent = true
+
+}
+
+data "aws_eks_addon_version" "kube_proxy" {
+
+  addon_name = "kube-proxy"
+
+  kubernetes_version = var.cluster_version
+
+  most_recent = true
+
+}
+
+data "aws_eks_addon_version" "coredns" {
+
+  addon_name = "coredns"
+
+  kubernetes_version = var.cluster_version
+
+  most_recent = true
+
+}
+
+data "aws_eks_addon_version" "ebs_csi_driver" {
+
+  addon_name = "aws-ebs-csi-driver"
+
+  kubernetes_version = var.cluster_version
+
+  most_recent = true
+
+}
+
+############################################################
 # Amazon VPC CNI
 ############################################################
 
@@ -13,7 +57,7 @@ resource "aws_eks_addon" "vpc_cni" {
 
   addon_name = "vpc-cni"
 
-  addon_version = var.vpc_cni_version
+  addon_version = data.aws_eks_addon_version.vpc_cni.version
 
   resolve_conflicts_on_create = var.resolve_conflicts_on_create
 
@@ -43,23 +87,11 @@ resource "aws_eks_addon" "kube_proxy" {
 
   addon_name = "kube-proxy"
 
-  addon_version = var.kube_proxy_version
+  addon_version = data.aws_eks_addon_version.kube_proxy.version
 
   resolve_conflicts_on_create = var.resolve_conflicts_on_create
 
   resolve_conflicts_on_update = var.resolve_conflicts_on_update
-
-  tags = merge(
-
-    var.tags,
-
-    {
-
-      Name = "${var.cluster_name}-kube-proxy"
-
-    }
-
-  )
 
   depends_on = [
 
@@ -79,23 +111,11 @@ resource "aws_eks_addon" "coredns" {
 
   addon_name = "coredns"
 
-  addon_version = var.coredns_version
+  addon_version = data.aws_eks_addon_version.coredns.version
 
   resolve_conflicts_on_create = var.resolve_conflicts_on_create
 
   resolve_conflicts_on_update = var.resolve_conflicts_on_update
-
-  tags = merge(
-
-    var.tags,
-
-    {
-
-      Name = "${var.cluster_name}-coredns"
-
-    }
-
-  )
 
   depends_on = [
 
@@ -115,23 +135,13 @@ resource "aws_eks_addon" "ebs_csi_driver" {
 
   addon_name = "aws-ebs-csi-driver"
 
-  addon_version = var.ebs_csi_driver_version
+  addon_version = data.aws_eks_addon_version.ebs_csi_driver.version
+
+  service_account_role_arn = var.ebs_csi_irsa_role_arn
 
   resolve_conflicts_on_create = var.resolve_conflicts_on_create
 
   resolve_conflicts_on_update = var.resolve_conflicts_on_update
-
-  tags = merge(
-
-    var.tags,
-
-    {
-
-      Name = "${var.cluster_name}-ebs-csi-driver"
-
-    }
-
-  )
 
   depends_on = [
 
