@@ -124,3 +124,23 @@ output "platform_version" {
   value = module.production_eks_cluster.platform_version
 
 }
+
+############################################################
+# IAM OIDC Provider
+############################################################
+
+output "oidc_provider_arn" {
+
+  description = "IAM OIDC Provider ARN"
+
+  value = module.production_eks_cluster.oidc_provider_arn
+
+}
+
+output "oidc_provider_url" {
+
+  description = "IAM OIDC Provider URL"
+
+  value = module.production_eks_cluster.oidc_provider_url
+
+}
