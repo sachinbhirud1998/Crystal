@@ -1,10 +1,6 @@
 ############################################################
 # Project Crystal
-# Module      : EKS Add-ons
-############################################################
-
-############################################################
-# Cluster
+# Reusable EKS Add-ons Module
 ############################################################
 
 variable "cluster_name" {
@@ -15,60 +11,34 @@ variable "cluster_name" {
 
 }
 
-variable "cluster_version" {
+variable "kubernetes_version" {
 
-  description = "Amazon EKS Kubernetes Version"
-
-  type = string
-
-}
-
-############################################################
-# Amazon EBS CSI Driver IRSA
-############################################################
-
-variable "ebs_csi_irsa_role_arn" {
-
-  description = "IAM Role ARN used by Amazon EBS CSI Driver"
+  description = "Kubernetes Version"
 
   type = string
 
 }
 
-############################################################
-# Conflict Resolution
-############################################################
+variable "addons" {
 
-variable "resolve_conflicts_on_create" {
+  description = "Map of EKS Managed Add-ons"
 
-  description = "Conflict resolution during creation"
+  type = map(object({
 
-  type = string
+    resolve_conflicts_on_create = optional(string)
 
-  default = "OVERWRITE"
+    resolve_conflicts_on_update = optional(string)
 
-}
+    service_account_role_arn = optional(string)
 
-variable "resolve_conflicts_on_update" {
-
-  description = "Conflict resolution during update"
-
-  type = string
-
-  default = "OVERWRITE"
+  }))
 
 }
-
-############################################################
-# Common Tags
-############################################################
 
 variable "tags" {
 
   description = "Common Tags"
 
   type = map(string)
-
-  default = {}
 
 }

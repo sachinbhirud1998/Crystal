@@ -1,67 +1,43 @@
 ############################################################
 # Project Crystal
-# Module      : EKS Add-ons
+# Reusable EKS Add-ons Module
 ############################################################
 
 ############################################################
-# Latest Compatible Add-on Versions
+# Fetch Latest Compatible Add-on Version
 ############################################################
 
-data "aws_eks_addon_version" "vpc_cni" {
+data "aws_eks_addon_version" "this" {
 
-  addon_name = "vpc-cni"
+  for_each = var.addons
 
-  kubernetes_version = var.cluster_version
+  addon_name = each.key
 
-  most_recent = true
-
-}
-
-data "aws_eks_addon_version" "kube_proxy" {
-
-  addon_name = "kube-proxy"
-
-  kubernetes_version = var.cluster_version
-
-  most_recent = true
-
-}
-
-data "aws_eks_addon_version" "coredns" {
-
-  addon_name = "coredns"
-
-  kubernetes_version = var.cluster_version
-
-  most_recent = true
-
-}
-
-data "aws_eks_addon_version" "ebs_csi_driver" {
-
-  addon_name = "aws-ebs-csi-driver"
-
-  kubernetes_version = var.cluster_version
+  kubernetes_version = var.kubernetes_version
 
   most_recent = true
 
 }
 
 ############################################################
-# Amazon VPC CNI
+# EKS Managed Add-on
 ############################################################
 
-resource "aws_eks_addon" "vpc_cni" {
+resource "aws_eks_addon" "this" {
+
+  for_each = var.addons
 
   cluster_name = var.cluster_name
 
-  addon_name = "vpc-cni"
+  addon_name = each.key
 
-  addon_version = data.aws_eks_addon_version.vpc_cni.version
+  addon_version = data.aws_eks_addon_version.this[each.key].version
 
-  resolve_conflicts_on_create = var.resolve_conflicts_on_create
+  resolve_conflicts_on_create = try(each.value.resolve_conflicts_on_create, "OVERWRITE")
 
-  resolve_conflicts_on_update = var.resolve_conflicts_on_update
+  resolve_conflicts_on_update = try(each.value.resolve_conflicts_on_update, "OVERWRITE")
+
+  service_account_role_arn = try(each.value.service_account_role_arn, null)
 
   tags = merge(
 
@@ -69,84 +45,10 @@ resource "aws_eks_addon" "vpc_cni" {
 
     {
 
-      Name = "${var.cluster_name}-vpc-cni"
+      Name = each.key
 
     }
 
   )
-
-}
-
-############################################################
-# kube-proxy
-############################################################
-
-resource "aws_eks_addon" "kube_proxy" {
-
-  cluster_name = var.cluster_name
-
-  addon_name = "kube-proxy"
-
-  addon_version = data.aws_eks_addon_version.kube_proxy.version
-
-  resolve_conflicts_on_create = var.resolve_conflicts_on_create
-
-  resolve_conflicts_on_update = var.resolve_conflicts_on_update
-
-  depends_on = [
-
-    aws_eks_addon.vpc_cni
-
-  ]
-
-}
-
-############################################################
-# CoreDNS
-############################################################
-
-resource "aws_eks_addon" "coredns" {
-
-  cluster_name = var.cluster_name
-
-  addon_name = "coredns"
-
-  addon_version = data.aws_eks_addon_version.coredns.version
-
-  resolve_conflicts_on_create = var.resolve_conflicts_on_create
-
-  resolve_conflicts_on_update = var.resolve_conflicts_on_update
-
-  depends_on = [
-
-    aws_eks_addon.kube_proxy
-
-  ]
-
-}
-
-############################################################
-# Amazon EBS CSI Driver
-############################################################
-
-resource "aws_eks_addon" "ebs_csi_driver" {
-
-  cluster_name = var.cluster_name
-
-  addon_name = "aws-ebs-csi-driver"
-
-  addon_version = data.aws_eks_addon_version.ebs_csi_driver.version
-
-  service_account_role_arn = var.ebs_csi_irsa_role_arn
-
-  resolve_conflicts_on_create = var.resolve_conflicts_on_create
-
-  resolve_conflicts_on_update = var.resolve_conflicts_on_update
-
-  depends_on = [
-
-    aws_eks_addon.coredns
-
-  ]
 
 }
