@@ -1,56 +1,78 @@
 ############################################################
 # Project Crystal
-# Subnet Module
-#
-# USER INPUT REQUIRED?
-# No
-#
-# Values are supplied from the calling module.
+# Reusable Subnet Module
 ############################################################
 
-##############################
+############################################################
 # VPC
-##############################
+############################################################
 
 variable "vpc_id" {
-  description = "VPC ID where subnets will be created."
-  type        = string
+
+  description = "VPC ID"
+
+  type = string
+
 }
 
-##############################
-# PUBLIC SUBNETS
-##############################
+############################################################
+# Public Subnets
+############################################################
 
 variable "public_subnets" {
-  description = "Public subnet configuration."
+
+  description = "Public Subnets"
 
   type = map(object({
+
     cidr = string
     az   = string
+
   }))
+
 }
 
-##############################
-# PRIVATE SUBNETS
-##############################
+############################################################
+# Private Subnets
+############################################################
 
 variable "private_subnets" {
-  description = "Private subnet configuration."
+
+  description = "Private Subnets"
 
   type = map(object({
+
     cidr = string
     az   = string
+
   }))
+
 }
 
-##############################
-# TAGS
-##############################
+############################################################
+# Common Tags
+############################################################
 
 variable "tags" {
-  description = "Common tags."
+
+  description = "Common Tags"
 
   type = map(string)
 
   default = {}
+
+}
+
+############################################################
+# Kubernetes Tags
+############################################################
+
+variable "kubernetes_tags" {
+
+  description = "Optional Kubernetes subnet tags"
+
+  type = map(string)
+
+  default = {}
+
 }

@@ -31,21 +31,17 @@ module "production_subnets" {
   private_subnets = var.private_subnets
 
   tags = var.common_tags
-}
 
-############################################################
-# Internet Gateway
-############################################################
+  kubernetes_tags = {
 
-module "production_internet_gateway" {
+    "kubernetes.io/cluster/crystal-production-eks" = "shared"
 
-  source = "../../modules/internet-gateway"
+    "kubernetes.io/role/elb" = "1"
 
-  vpc_id = module.production_vpc.vpc_id
+    "kubernetes.io/role/internal-elb" = "1"
 
-  igw_name = var.internet_gateway_name
+  }
 
-  tags = var.common_tags
 }
 
 ############################################################

@@ -31,6 +31,7 @@ module "shared_services_subnets" {
   private_subnets = var.private_subnets
 
   tags = var.common_tags
+
 }
 
 ############################################################
