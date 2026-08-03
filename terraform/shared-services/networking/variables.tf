@@ -77,3 +77,83 @@ variable "allowed_ssh_cidrs" {
   type    = list(string)
   default = []
 }
+
+############################################################
+# Internet Gateway
+############################################################
+
+variable "internet_gateway_name" {
+
+  description = "Internet Gateway Name"
+
+  type = string
+
+}
+
+############################################################
+# Route Tables
+############################################################
+
+variable "public_route_table_name" {
+
+  description = "Public Route Table Name"
+
+  type = string
+
+}
+
+variable "private_route_table_name" {
+
+  description = "Private Route Table Name"
+
+  type = string
+
+}
+
+############################################################
+# Management Security Group
+############################################################
+
+variable "management_security_group_name" {
+
+  description = "Management Security Group Name"
+
+  type = string
+
+}
+
+############################################################
+# VPC Peering (Production)
+############################################################
+
+variable "production_vpc_id" {
+
+  description = "Production VPC ID (peer VPC for the peering connection)"
+
+  type = string
+
+}
+
+variable "production_vpc_cidr" {
+
+  description = "Production VPC CIDR (destination for the peering routes)"
+
+  type = string
+
+}
+
+variable "production_account_id" {
+
+  description = "AWS Account ID that owns the Production VPC"
+
+  type = string
+
+}
+
+variable "vpc_peering_connection_name" {
+
+  description = "VPC Peering Connection Name"
+
+  type = string
+
+}

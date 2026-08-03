@@ -182,3 +182,15 @@ output "nat_gateway_elastic_ip_allocation_id" {
   value = module.production_nat_gateway.elastic_ip_allocation_id
 
 }
+
+############################################################
+# VPC Peering
+############################################################
+
+output "vpc_peering_connection_id" {
+
+  description = "VPC Peering Connection ID (Production <-> Shared Services)"
+
+  value = module.vpc_peering.vpc_peering_connection_id
+
+}

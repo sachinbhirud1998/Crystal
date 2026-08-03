@@ -26,11 +26,9 @@ resource "aws_subnet" "public" {
 
       Type = "Public"
 
-      "kubernetes.io/cluster/crystal-production-eks" = "shared"
+    },
 
-      "kubernetes.io/role/elb" = "1"
-
-    }
+    var.kubernetes_tags
 
   )
 
@@ -58,11 +56,9 @@ resource "aws_subnet" "private" {
 
       Type = "Private"
 
-      "kubernetes.io/cluster/crystal-production-eks" = "shared"
+    },
 
-      "kubernetes.io/role/internal-elb" = "1"
-
-    }
+    var.kubernetes_tags
 
   )
 

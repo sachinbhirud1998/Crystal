@@ -34,14 +34,6 @@ public_route_table_name = "crystal-prod-public-route-table"
 private_route_table_name = "crystal-prod-private-route-table"
 
 ############################################################
-# Network ACL
-############################################################
-
-public_network_acl_name = "crystal-production-public-network-acl"
-
-private_network_acl_name = "crystal-production-private-network-acl"
-
-############################################################
 # Security Group
 ############################################################
 
@@ -130,3 +122,19 @@ nat_gateway_name = "crystal-production-nat-gateway"
 elastic_ip_name = "crystal-production-nat-eip"
 
 nat_gateway_public_subnet_name = "crystal-prod-public-subnet-a"
+
+############################################################
+# VPC Peering (Shared Services)
+#
+# vpc_peering_connection_id is produced by the Shared
+# Services stack (module.vpc_peering.vpc_peering_connection_id
+# in shared-services/networking) and must be applied there
+# FIRST. Copy that output's value in below before applying
+# this stack.
+############################################################
+
+shared_services_vpc_cidr = "10.0.0.0/16"
+
+vpc_peering_connection_id = "pcx-08556e641313e1466"
+
+vpc_peering_connection_name = "crystal-shared-services-production-peering"

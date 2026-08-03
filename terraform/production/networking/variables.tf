@@ -76,26 +76,6 @@ variable "private_route_table_name" {
 }
 
 ############################################################
-# Network ACL
-############################################################
-
-variable "public_network_acl_name" {
-
-  description = "Public Network ACL Name"
-
-  type = string
-
-}
-
-variable "private_network_acl_name" {
-
-  description = "Private Network ACL Name"
-
-  type = string
-
-}
-
-############################################################
 # Security Group
 ############################################################
 
@@ -188,6 +168,34 @@ variable "elastic_ip_name" {
 variable "nat_gateway_public_subnet_name" {
 
   description = "Public Subnet Name where NAT Gateway will be deployed"
+
+  type = string
+
+}
+
+############################################################
+# VPC Peering (Shared Services)
+############################################################
+
+variable "shared_services_vpc_cidr" {
+
+  description = "Shared Services VPC CIDR (destination for the peering routes)"
+
+  type = string
+
+}
+
+variable "vpc_peering_connection_id" {
+
+  description = "Pending VPC Peering Connection ID created by the Shared Services stack, to be accepted here"
+
+  type = string
+
+}
+
+variable "vpc_peering_connection_name" {
+
+  description = "VPC Peering Connection Name"
 
   type = string
 

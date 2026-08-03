@@ -31,10 +31,32 @@ module "production_subnets" {
   private_subnets = var.private_subnets
 
   tags = var.common_tags
+
+  kubernetes_tags = {
+
+    "kubernetes.io/cluster/crystal-production-eks" = "shared"
+
+    "kubernetes.io/role/elb" = "1"
+
+    "kubernetes.io/role/internal-elb" = "1"
+
+  }
+
 }
 
 ############################################################
 # Internet Gateway
+#
+# NOTE: this module block was missing from the main.tf that
+# was supplied for review, even though main.tf, outputs.tf,
+# and terraform.tfstate all reference
+# module.production_internet_gateway. Restored here using
+# the same "../../modules/internet-gateway" module and the
+# same var.internet_gateway_name already present in
+# variables.tf / terraform.tfvars, matching the pattern used
+# in shared-services/networking. See the review notes for
+# details -- this is unrelated to VPC Peering but is required
+# for this stack to plan/apply at all.
 ############################################################
 
 module "production_internet_gateway" {
@@ -111,4 +133,33 @@ module "production_nat_gateway" {
     module.production_internet_gateway,
     module.production_route_table
   ]
+}
+
+############################################################
+# VPC Peering (Production <-> Shared Services)
+#
+# Production is the ACCEPTER side. The Shared Services stack
+# creates the requester side and outputs the pending
+# vpc_peering_connection_id, which is copied into this
+# stack's terraform.tfvars (var.vpc_peering_connection_id)
+# after that stack has been applied. See the review notes for
+# the required apply order.
+############################################################
+
+module "vpc_peering" {
+
+  source = "../../modules/vpc-peering"
+
+  create_accepter = true
+
+  vpc_peering_connection_id = var.vpc_peering_connection_id
+
+  peering_connection_name = var.vpc_peering_connection_name
+
+  public_route_table_id  = module.production_route_table.public_route_table_id
+  private_route_table_id = module.production_route_table.private_route_table_id
+
+  destination_cidr_block = var.shared_services_vpc_cidr
+
+  tags = var.common_tags
 }

@@ -18,6 +18,20 @@ data "terraform_remote_state" "networking" {
 }
 
 ############################################################
+# Shared Services Management Remote State
+############################################################
+
+data "terraform_remote_state" "shared_services_management" {
+
+  backend = "local"
+
+  config = {
+    path = "../../shared-services/management/terraform.tfstate"
+  }
+
+}
+
+############################################################
 # EKS Control Plane IAM Role
 ############################################################
 
@@ -127,6 +141,28 @@ resource "aws_security_group_rule" "bastion_to_eks_api" {
   security_group_id = module.production_eks_cluster.cluster_security_group_id
 
   source_security_group_id = data.terraform_remote_state.networking.outputs.bastion_security_group_id
+
+  protocol = "tcp"
+
+  from_port = 443
+
+  to_port = 443
+
+}
+
+############################################################
+# Shared Services Management Server (Rancher) -> EKS API
+############################################################
+
+resource "aws_security_group_rule" "management_to_eks_api" {
+
+  type = "ingress"
+
+  description = "Allow Shared Services Management Server (Rancher) to access EKS Kubernetes API"
+
+  security_group_id = module.production_eks_cluster.cluster_security_group_id
+
+  source_security_group_id = data.terraform_remote_state.shared_services_management.outputs.management_security_group_id
 
   protocol = "tcp"
 
