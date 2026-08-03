@@ -77,3 +77,47 @@ variable "allowed_ssh_cidrs" {
   type    = list(string)
   default = []
 }
+
+############################################################
+# Internet Gateway
+############################################################
+
+variable "internet_gateway_name" {
+
+  description = "Internet Gateway Name"
+
+  type = string
+
+}
+
+############################################################
+# Route Tables
+############################################################
+
+variable "public_route_table_name" {
+
+  description = "Public Route Table Name"
+
+  type = string
+
+}
+
+variable "private_route_table_name" {
+
+  description = "Private Route Table Name"
+
+  type = string
+
+}
+
+############################################################
+# Management Security Group
+############################################################
+
+variable "management_security_group_name" {
+
+  description = "Management Security Group Name"
+
+  type = string
+
+}

@@ -89,3 +89,23 @@ allowed_ssh_cidrs = [
   "103.235.0.227/32",
   "192.168.1.8/32"
 ]
+
+############################################################
+# Internet Gateway
+############################################################
+
+internet_gateway_name = "crystal-shared-services-igw"
+
+############################################################
+# Route Tables
+############################################################
+
+public_route_table_name = "crystal-public-route-table"
+
+private_route_table_name = "crystal-private-route-table"
+
+############################################################
+# Management Security Group
+############################################################
+
+management_security_group_name = "crystal-management-sg"

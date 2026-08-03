@@ -1,68 +1,87 @@
 ############################################################
 # Project Crystal
-# Shared Services - Management
+# Shared Services Networking
 ############################################################
 
 ############################################################
-# Networking Remote State
+# Shared Services VPC
 ############################################################
 
-data "terraform_remote_state" "networking" {
+module "shared_services_vpc" {
 
-  backend = "local"
+  source = "../../modules/vpc"
 
-  config = {
-    path = "../networking/terraform.tfstate"
-  }
-
-}
-
-############################################################
-# Local Values
-############################################################
-
-locals {
-
-  management_subnet_id = data.terraform_remote_state.networking.outputs.public_subnet_ids[0]
-
-  management_security_group_id = data.terraform_remote_state.networking.outputs.management_security_group_id
-
-}
-
-############################################################
-# IAM Role
-############################################################
-
-module "management_iam_role" {
-
-  source = "../../modules/iam-role"
-
-  role_name = "crystal-management-role"
-
-  role_description = "IAM Role for Project Crystal Management Server"
-
-  service_principal = "ec2.amazonaws.com"
-
-  managed_policy_arns = [
-    "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
-  ]
+  vpc_name = var.vpc_name
+  vpc_cidr = var.vpc_cidr
 
   tags = var.common_tags
-
 }
 
 ############################################################
-# IAM Instance Profile
+# Shared Services Subnets
 ############################################################
 
-module "management_instance_profile" {
+module "shared_services_subnets" {
 
-  source = "../../modules/instance-profile"
+  source = "../../modules/subnet"
 
-  instance_profile_name = "crystal-management-instance-profile"
+  vpc_id = module.shared_services_vpc.vpc_id
 
-  role_name = module.management_iam_role.role_name
+  public_subnets  = var.public_subnets
+  private_subnets = var.private_subnets
 
   tags = var.common_tags
+}
 
+############################################################
+# Shared Services Internet Gateway
+############################################################
+
+module "shared_services_igw" {
+
+  source = "../../modules/internet-gateway"
+
+  vpc_id = module.shared_services_vpc.vpc_id
+
+  igw_name = var.internet_gateway_name
+
+  tags = var.common_tags
+}
+
+############################################################
+# Shared Services Route Tables
+############################################################
+
+module "shared_services_route_table" {
+
+  source = "../../modules/route-table"
+
+  vpc_id = module.shared_services_vpc.vpc_id
+
+  public_route_table_name  = var.public_route_table_name
+  private_route_table_name = var.private_route_table_name
+
+  internet_gateway_id = module.shared_services_igw.igw_id
+
+  public_subnet_ids  = values(module.shared_services_subnets.public_subnet_ids)
+  private_subnet_ids = values(module.shared_services_subnets.private_subnet_ids)
+
+  tags = var.common_tags
+}
+
+############################################################
+# Management Security Group
+############################################################
+
+module "management_security_group" {
+
+  source = "../../modules/security-group"
+
+  vpc_id = module.shared_services_vpc.vpc_id
+
+  security_group_name = var.management_security_group_name
+
+  allowed_ssh_cidrs = var.allowed_ssh_cidrs
+
+  tags = var.common_tags
 }
