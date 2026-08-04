@@ -28,3 +28,20 @@ override.tf.json
 
 .terraformrc
 terraform.rc
+# Terraform
+.terraform/
+.terraform.tfstate.lock.info
+terraform.tfstate
+terraform.tfstate.*
+!terraform.tfstate.d/
+*.tfplan
+*.plan
+crash.log
+crash.*.log
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+*.pem
+*.key
+keys/

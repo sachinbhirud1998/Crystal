@@ -104,23 +104,3 @@ output "platform_version" {
   value = aws_eks_cluster.this.platform_version
 
 }
-
-############################################################
-# IAM OIDC Provider
-############################################################
-
-output "oidc_provider_arn" {
-
-  description = "IAM OIDC Provider ARN"
-
-  value = aws_iam_openid_connect_provider.this.arn
-
-}
-
-output "oidc_provider_url" {
-
-  description = "IAM OIDC Provider URL"
-
-  value = aws_iam_openid_connect_provider.this.url
-
-}
