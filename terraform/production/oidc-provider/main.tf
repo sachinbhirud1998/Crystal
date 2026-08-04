@@ -9,11 +9,17 @@
 
 data "terraform_remote_state" "eks_cluster" {
 
-  backend = "local"
+  backend = "s3"
 
   config = {
 
-    path = "../eks-cluster/terraform.tfstate"
+    bucket  = "crystal-tfstate-987654321"
+
+    key     = "production/eks-cluster/terraform.tfstate"
+
+    region  = "ap-south-1"
+
+    profile = "shared-services"
 
   }
 

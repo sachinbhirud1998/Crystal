@@ -9,10 +9,18 @@
 
 data "terraform_remote_state" "networking" {
 
-  backend = "local"
+  backend = "s3"
 
   config = {
-    path = "../networking/terraform.tfstate"
+
+    bucket  = "crystal-tfstate-987654321"
+
+    key     = "shared-services/networking/terraform.tfstate"
+
+    region  = "ap-south-1"
+
+    profile = "shared-services"
+
   }
 
 }

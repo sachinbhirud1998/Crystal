@@ -9,11 +9,17 @@
 
 data "terraform_remote_state" "oidc" {
 
-  backend = "local"
+  backend = "s3"
 
   config = {
 
-    path = "../oidc-provider/terraform.tfstate"
+    bucket  = "crystal-tfstate-987654321"
+
+    key     = "production/oidc-provider/terraform.tfstate"
+
+    region  = "ap-south-1"
+
+    profile = "shared-services"
 
   }
 
