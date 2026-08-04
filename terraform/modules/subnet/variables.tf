@@ -64,12 +64,26 @@ variable "tags" {
 }
 
 ############################################################
-# Kubernetes Tags
+# Public Kubernetes Tags
 ############################################################
 
-variable "kubernetes_tags" {
+variable "public_kubernetes_tags" {
 
-  description = "Optional Kubernetes subnet tags"
+  description = "Public Kubernetes subnet tags"
+
+  type = map(string)
+
+  default = {}
+
+}
+
+############################################################
+# Private Kubernetes Tags
+############################################################
+
+variable "private_kubernetes_tags" {
+
+  description = "Private Kubernetes subnet tags"
 
   type = map(string)
 

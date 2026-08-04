@@ -32,11 +32,17 @@ module "production_subnets" {
 
   tags = var.common_tags
 
-  kubernetes_tags = {
+  public_kubernetes_tags = {
 
     "kubernetes.io/cluster/crystal-production-eks" = "shared"
 
     "kubernetes.io/role/elb" = "1"
+
+  }
+
+  private_kubernetes_tags = {
+
+    "kubernetes.io/cluster/crystal-production-eks" = "shared"
 
     "kubernetes.io/role/internal-elb" = "1"
 

@@ -13,11 +13,11 @@ data "terraform_remote_state" "oidc" {
 
   config = {
 
-    bucket  = "crystal-tfstate-987654321"
+    bucket = "crystal-tfstate-987654321"
 
-    key     = "production/oidc-provider/terraform.tfstate"
+    key = "production/oidc-provider/terraform.tfstate"
 
-    region  = "ap-south-1"
+    region = "ap-south-1"
 
     profile = "shared-services"
 
@@ -47,8 +47,7 @@ module "aws_load_balancer_controller_irsa" {
 
   managed_policy_arns = [
 
-    # Placeholder. We'll attach the official ALB Controller IAM policy
-    # in the next milestone after creating it.
+    aws_iam_policy.aws_load_balancer_controller.arn
 
   ]
 

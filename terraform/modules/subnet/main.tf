@@ -28,7 +28,7 @@ resource "aws_subnet" "public" {
 
     },
 
-    var.kubernetes_tags
+    var.public_kubernetes_tags
 
   )
 
@@ -58,7 +58,7 @@ resource "aws_subnet" "private" {
 
     },
 
-    var.kubernetes_tags
+    var.private_kubernetes_tags
 
   )
 
