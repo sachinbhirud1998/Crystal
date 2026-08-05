@@ -11,13 +11,6 @@ variable "aws_region" {
 
 }
 
-variable "aws_profile" {
-
-  description = "AWS CLI Profile"
-
-  type = string
-
-}
 
 variable "platform_admin_group" {
 

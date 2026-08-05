@@ -4,11 +4,6 @@ variable "aws_region" {
 
 }
 
-variable "aws_profile" {
-
-  type = string
-
-}
 
 variable "common_tags" {
 

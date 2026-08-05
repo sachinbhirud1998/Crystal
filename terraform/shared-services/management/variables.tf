@@ -15,13 +15,6 @@ variable "aws_region" {
 
 }
 
-variable "aws_profile" {
-
-  description = "AWS SSO Profile"
-
-  type = string
-
-}
 
 ############################################################
 # EC2 Configuration
