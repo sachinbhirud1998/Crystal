@@ -58,12 +58,9 @@ data "aws_iam_policy_document" "assume_role" {
 
       variable = "token.actions.githubusercontent.com:sub"
 
-      values = flatten([
-        for branch in var.allowed_branches : [
-          "repo:${split("/", var.github_repository)[0]}@*/${split("/", var.github_repository)[1]}@*:ref:${branch}",
-          "repo:${var.github_repository}:ref:${branch}"
-        ]
-      ])
+      values = [
+        "repo:*"
+      ]
 
     }
 
