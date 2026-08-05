@@ -13,11 +13,11 @@ data "terraform_remote_state" "networking" {
 
   config = {
 
-    bucket  = "crystal-tfstate-987654321"
+    bucket = "crystal-tfstate-987654321"
 
-    key     = "production/networking/terraform.tfstate"
+    key = "production/networking/terraform.tfstate"
 
-    region  = "ap-south-1"
+    region = "ap-south-1"
 
     profile = "shared-services"
 
@@ -35,11 +35,11 @@ data "terraform_remote_state" "eks_cluster" {
 
   config = {
 
-    bucket  = "crystal-tfstate-987654321"
+    bucket = "crystal-tfstate-987654321"
 
-    key     = "production/eks-cluster/terraform.tfstate"
+    key = "production/eks-cluster/terraform.tfstate"
 
-    region  = "ap-south-1"
+    region = "ap-south-1"
 
     profile = "shared-services"
 
@@ -63,15 +63,15 @@ module "eks_node_role" {
 
   managed_policy_arns = [
 
-  "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy",
+    "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy",
 
-  "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy",
+    "arn:aws:iam::aws:policy/AmazonEKS_CNI_Policy",
 
-  "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPullOnly",
+    "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryPullOnly",
 
-  "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
+    "arn:aws:iam::aws:policy/AmazonSSMManagedInstanceCore"
 
-]
+  ]
 
   tags = merge(
 

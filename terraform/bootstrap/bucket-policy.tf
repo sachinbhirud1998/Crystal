@@ -5,7 +5,7 @@ data "aws_iam_policy_document" "terraform_backend_bucket_policy" {
   #
 
   statement {
-    sid    = "SharedServicesBucket"
+    sid = "SharedServicesBucket"
 
     effect = "Allow"
 
@@ -27,7 +27,7 @@ data "aws_iam_policy_document" "terraform_backend_bucket_policy" {
   }
 
   statement {
-    sid    = "SharedServicesObjects"
+    sid = "SharedServicesObjects"
 
     effect = "Allow"
 
@@ -55,7 +55,7 @@ data "aws_iam_policy_document" "terraform_backend_bucket_policy" {
   #
 
   statement {
-    sid    = "DevelopmentBucket"
+    sid = "DevelopmentBucket"
 
     effect = "Allow"
 
@@ -77,7 +77,7 @@ data "aws_iam_policy_document" "terraform_backend_bucket_policy" {
   }
 
   statement {
-    sid    = "DevelopmentObjects"
+    sid = "DevelopmentObjects"
 
     effect = "Allow"
 
@@ -105,7 +105,7 @@ data "aws_iam_policy_document" "terraform_backend_bucket_policy" {
   #
 
   statement {
-    sid    = "ProductionBucket"
+    sid = "ProductionBucket"
 
     effect = "Allow"
 
@@ -127,7 +127,7 @@ data "aws_iam_policy_document" "terraform_backend_bucket_policy" {
   }
 
   statement {
-    sid    = "ProductionObjects"
+    sid = "ProductionObjects"
 
     effect = "Allow"
 

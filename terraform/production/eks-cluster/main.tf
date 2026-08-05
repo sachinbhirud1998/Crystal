@@ -13,11 +13,11 @@ data "terraform_remote_state" "networking" {
 
   config = {
 
-    bucket  = "crystal-tfstate-987654321"
+    bucket = "crystal-tfstate-987654321"
 
-    key     = "production/networking/terraform.tfstate"
+    key = "production/networking/terraform.tfstate"
 
-    region  = "ap-south-1"
+    region = "ap-south-1"
 
     profile = "shared-services"
 
@@ -35,11 +35,11 @@ data "terraform_remote_state" "shared_services_management" {
 
   config = {
 
-    bucket  = "crystal-tfstate-987654321"
+    bucket = "crystal-tfstate-987654321"
 
-    key     = "shared-services/management/terraform.tfstate"
+    key = "shared-services/management/terraform.tfstate"
 
-    region  = "ap-south-1"
+    region = "ap-south-1"
 
     profile = "shared-services"
 

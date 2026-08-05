@@ -9,7 +9,7 @@ resource "aws_eks_cluster" "this" {
   # Cluster Configuration
   ##########################################################
 
-  name    = var.cluster_name
+  name = var.cluster_name
 
   version = var.kubernetes_version
 

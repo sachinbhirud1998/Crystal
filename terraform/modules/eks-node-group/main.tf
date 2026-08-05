@@ -9,11 +9,11 @@ resource "aws_eks_node_group" "this" {
   # EKS Cluster
   ##########################################################
 
-  cluster_name    = var.cluster_name
+  cluster_name = var.cluster_name
 
   node_group_name = var.node_group_name
 
-  node_role_arn   = var.node_role_arn
+  node_role_arn = var.node_role_arn
 
   ##########################################################
   # Networking
