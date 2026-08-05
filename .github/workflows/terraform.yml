@@ -5,16 +5,18 @@ on:
     branches:
       - main
       - feature/**
+
   push:
     branches:
       - main
       - feature/**
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   terraform:
-    permissions:
-      id-token: write 
-      contents: read
 
     runs-on: ubuntu-latest
 
@@ -37,7 +39,11 @@ jobs:
 
       - name: Terraform Init
         working-directory: terraform/production/networking
-        run: terraform init
+        run: |
+          terraform init \
+            -backend-config="bucket=crystal-tfstate-987654321" \
+            -backend-config="key=production/networking/terraform.tfstate" \
+            -backend-config="region=ap-south-1"
 
       - name: Terraform Validate
         working-directory: terraform/production/networking
