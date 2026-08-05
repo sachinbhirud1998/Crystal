@@ -23,8 +23,8 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      TF_VAR_aws_region: ${{ vars.TF_VAR_aws_region }}
-      TF_VAR_allowed_ssh_cidrs: ${{ vars.TF_VAR_allowed_ssh_cidrs }}
+      TF_VAR_aws_region: ${{ vars.TF_VAR_AWS_REGION }}
+      TF_VAR_allowed_ssh_cidrs: ${{ vars.TF_VAR_ALLOWED_SSH_CIDRS }}
 
     defaults:
       run:
@@ -45,8 +45,13 @@ jobs:
           mask-aws-account-id: false
 
       - name: Verify AWS Identity
+        run: aws sts get-caller-identity
+
+      - name: Print TF Environment
         run: |
-          aws sts get-caller-identity
+          echo "===== TF Variables ====="
+          env | sort | grep TF_VAR || true
+          echo "========================"
 
       - name: Terraform Init
         working-directory: terraform/production/networking
