@@ -59,8 +59,6 @@ data "aws_iam_policy_document" "assume_role" {
       variable = "token.actions.githubusercontent.com:sub"
 
       values = [
-        "repo:sachinbhirud1998/Crystal:ref:refs/heads/main",
-        "repo:sachinbhirud1998/Crystal:ref:refs/heads/feature/*",
         "repo:sachinbhirud1998@*/Crystal@*:ref:refs/heads/main",
         "repo:sachinbhirud1998@*/Crystal@*:ref:refs/heads/feature/*"
       ]
@@ -100,35 +98,24 @@ resource "aws_iam_policy" "terraform" {
   description = "Terraform deployment policy"
 
   policy = jsonencode({
-
     Version = "2012-10-17"
-
-    Statement = [
-
-      {
-
-        Effect = "Allow"
-
-        Action = [
-          "ec2:*",
-          "eks:*",
-          "elasticloadbalancing:*",
-          "autoscaling:*",
-          "iam:*",
-          "kms:*",
-          "logs:*",
-          "ssm:*",
-          "cloudwatch:*",
-          "route53:*",
-          "s3:*"
-        ]
-
-        Resource = "*"
-
-      }
-
-    ]
-
+    Statement = [{
+      Effect = "Allow"
+      Action = [
+        "ec2:*",
+        "eks:*",
+        "elasticloadbalancing:*",
+        "autoscaling:*",
+        "iam:*",
+        "kms:*",
+        "logs:*",
+        "ssm:*",
+        "cloudwatch:*",
+        "route53:*",
+        "s3:*"
+      ]
+      Resource = "*"
+    }]
   })
 
 }
