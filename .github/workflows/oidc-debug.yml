@@ -3,6 +3,10 @@ name: OIDC Debug
 on:
   workflow_dispatch:
 
+  push:
+    branches:
+      - feature/**
+
 permissions:
   id-token: write
   contents: read
@@ -14,6 +18,11 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Install jq
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y jq
+
       - name: Print GitHub OIDC Claims
         shell: bash
         run: |
@@ -23,7 +32,12 @@ jobs:
 
           TOKEN=$(echo "$RESPONSE" | jq -r '.value')
 
+          echo "===================="
+          echo "OIDC TOKEN CLAIMS"
+          echo "===================="
+
           echo "$TOKEN" \
-          | cut -d "." -f2 \
-          | base64 -d 2>/dev/null \
-          | jq .
+            | cut -d "." -f2 \
+            | tr '_-' '/+' \
+            | base64 -d \
+            | jq .
