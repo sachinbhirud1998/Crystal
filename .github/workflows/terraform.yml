@@ -41,9 +41,12 @@ jobs:
         with:
           aws-region: ap-south-1
           role-to-assume: arn:aws:iam::133644693386:role/crystal-github-actions-role
+          role-session-name: github-actions
+          mask-aws-account-id: false
 
       - name: Verify AWS Identity
-        run: aws sts get-caller-identity
+        run: |
+          aws sts get-caller-identity
 
       - name: Terraform Init
         working-directory: terraform/production/networking
