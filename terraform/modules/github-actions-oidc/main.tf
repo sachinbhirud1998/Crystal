@@ -59,8 +59,7 @@ data "aws_iam_policy_document" "assume_role" {
       variable = "token.actions.githubusercontent.com:sub"
 
       values = [
-        "repo:sachinbhirud1998@*/Crystal@*:ref:refs/heads/main",
-        "repo:sachinbhirud1998@*/Crystal@*:ref:refs/heads/feature/*"
+        "repo:sachinbhirud1998@*/Crystal@*:environment:production"
       ]
 
     }
