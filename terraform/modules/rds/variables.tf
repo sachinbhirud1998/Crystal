@@ -182,3 +182,11 @@ variable "tags" {
   type = map(string)
 
 }
+
+variable "monitoring_role_arn" {
+
+  description = "IAM Role ARN for Enhanced Monitoring"
+
+  type = string
+
+}

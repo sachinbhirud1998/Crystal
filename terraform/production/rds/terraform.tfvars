@@ -19,6 +19,8 @@ storage_type = "gp3"
 
 storage_encrypted = true
 
+kms_key_id = null
+
 username = "admin"
 
 password = "CHANGE_ME"
@@ -27,10 +29,11 @@ port = 3306
 
 db_name = "crystal"
 
-db_subnet_group_name = "crystal-production-db-subnet-group"
+vpc_id = "vpc-0e75815bda5198e04"
 
-vpc_security_group_ids = [
-  "sg-xxxxxxxxxxxxxxxxx"
+private_subnet_ids = [
+  "subnet-00e52cdfdac9f330a",
+  "subnet-007c5eec701ca06ef"
 ]
 
 multi_az = false
@@ -43,14 +46,12 @@ deletion_protection = true
 
 publicly_accessible = false
 
-performance_insights_enabled = true
+performance_insights_enabled = false
 
 monitoring_interval = 60
 
 common_tags = {
-
   Project     = "Crystal"
   Environment = "Production"
   ManagedBy   = "Terraform"
-
 }

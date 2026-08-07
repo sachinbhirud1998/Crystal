@@ -33,6 +33,8 @@ resource "aws_db_instance" "this" {
 
   vpc_security_group_ids = var.vpc_security_group_ids
 
+  monitoring_role_arn = var.monitoring_role_arn
+
   multi_az = var.multi_az
 
   backup_retention_period = var.backup_retention_period

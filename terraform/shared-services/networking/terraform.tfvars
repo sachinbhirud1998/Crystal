@@ -59,11 +59,11 @@ private_subnets = {}
 
 common_tags = {
 
-  Project     = "Crystal"
+  Project = "Crystal"
 
   Environment = "SharedServices"
 
-  ManagedBy   = "Terraform"
+  ManagedBy = "Terraform"
 
 }
 
@@ -89,7 +89,7 @@ internet_gateway_name = "crystal-shared-services-igw"
 # Route Tables
 ############################################################
 
-public_route_table_name  = "crystal-public-route-table"
+public_route_table_name = "crystal-public-route-table"
 
 private_route_table_name = "crystal-private-route-table"
 
