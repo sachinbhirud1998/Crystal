@@ -122,3 +122,23 @@ module "rds" {
   tags = var.common_tags
 
 }
+
+############################################################
+# EKS -> RDS MySQL
+############################################################
+
+resource "aws_vpc_security_group_ingress_rule" "eks_to_rds_mysql" {
+
+  security_group_id = aws_security_group.rds.id
+
+  referenced_security_group_id = "sg-0fc0d2c012ec463b2"
+
+  ip_protocol = "tcp"
+
+  from_port = 3306
+
+  to_port = 3306
+
+  description = "Allow EKS nodes to access RDS MySQL"
+
+}
