@@ -1,15 +1,10 @@
-############################################################
-# Project Crystal
-# Production RDS (MySQL)
-############################################################
-
 aws_region = "ap-south-1"
 
-identifier = "crystal-production-mysql"
+identifier = "crystal-production-postgres"
 
-engine = "mysql"
+engine = "postgres"
 
-engine_version = "8.4"
+engine_version = "17"
 
 instance_class = "db.t3.micro"
 
@@ -21,11 +16,9 @@ storage_encrypted = true
 
 kms_key_id = null
 
-username = "admin"
+username = "crystaladmin"
 
-password = "CHANGE_ME"
-
-port = 3306
+port = 5432
 
 db_name = "crystal"
 
@@ -40,9 +33,9 @@ multi_az = false
 
 backup_retention_period = 7
 
-skip_final_snapshot = false
+skip_final_snapshot = true
 
-deletion_protection = true
+deletion_protection = false
 
 publicly_accessible = false
 

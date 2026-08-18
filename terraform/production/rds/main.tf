@@ -124,10 +124,10 @@ module "rds" {
 }
 
 ############################################################
-# EKS -> RDS MySQL
+# EKS -> RDS PostgreSQL
 ############################################################
 
-resource "aws_vpc_security_group_ingress_rule" "eks_to_rds_mysql" {
+resource "aws_vpc_security_group_ingress_rule" "eks_to_rds_postgres" {
 
   security_group_id = aws_security_group.rds.id
 
@@ -135,10 +135,10 @@ resource "aws_vpc_security_group_ingress_rule" "eks_to_rds_mysql" {
 
   ip_protocol = "tcp"
 
-  from_port = 3306
+  from_port = 5432
 
-  to_port = 3306
+  to_port = 5432
 
-  description = "Allow EKS nodes to access RDS MySQL"
+  description = "Allow EKS nodes to access RDS PostgreSQL"
 
 }
